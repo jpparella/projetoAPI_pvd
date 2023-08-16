@@ -24,7 +24,7 @@ export class UsuarioService {
           EMAIL,
         },
     });
-    return (possivelUsuario == undefined);
+    return (possivelUsuario !== undefined);
    }
 
   async inserir(dados: CriaUsuarioDTO): Promise<RetornoCadastroDTO>{
