@@ -1,4 +1,5 @@
 import { IsEmail, IsInt, IsNotEmpty, IsOptional, IsString, MinLength } from "class-validator";
+import { AlteraPessoaDTO } from "src/pessoa/dto/alteraPessoa.dto";
 import { EmailUnico } from "src/validacao/email-unico.validator";
 
 
@@ -6,27 +7,18 @@ export class AlteraUsuarioDTO{
     @IsString()
     @IsNotEmpty({message: "Nome não pode ser vazio"})
     @IsOptional()
-    nome: string;
+    LOGIN: string;
 
     @IsEmail(undefined,{message: "Email inválido"})
     @EmailUnico({message:"Já existe usuário com esse email"})
     @IsOptional()
-    email:string;
+    EMAIL:string;
 
     @MinLength(6,{message: "Tamanho da senha inválido"})
     @IsOptional()
-    senha:string;
-
-    @IsInt({message: "Idade inválida"})
-    @IsOptional()
-    idade: BigInteger;
-
-    @IsString({message: "Cidade inválida"})
-    @IsOptional()
-    cidade: string;
+    SENHA:string;
     
-    @IsString({message: "Telefone inválido"})
-    @IsOptional()
-    telefone: string;
+    //@IsOptional()
+    //PESSOA: AlteraPessoaDTO;
 }
 

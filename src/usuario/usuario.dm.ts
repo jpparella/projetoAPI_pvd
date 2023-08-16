@@ -1,11 +1,11 @@
 import { Injectable } from "@nestjs/common";
-import { UsuarioEntity } from "./usuario.entity";
+import { USUARIO } from "./usuario.entity";
 
 @Injectable()
 export class UsuariosArmazenados{
-    #usuarios: UsuarioEntity[] = [];    
+    #usuarios: USUARIO[] = [];    
 
-    AdicionarUsuario(usuario: UsuarioEntity){
+    AdicionarUsuario(usuario: USUARIO){
         this.#usuarios.push(usuario);
     }
 
@@ -15,14 +15,14 @@ export class UsuariosArmazenados{
 
     async validaEmail(email: string){
         const possivelUsuario = this.#usuarios.find(
-            usuario => usuario.email === email  
+            usuario => usuario.EMAIL === email  
         );
         return (possivelUsuario !== undefined);
     }
 
     private buscaPorID(id: string){
         const possivelUsuario = this.#usuarios.find(
-            usuarioSalvo => usuarioSalvo.id === id
+            usuarioSalvo => usuarioSalvo.ID === id
         );
 
         if(!possivelUsuario){
@@ -32,7 +32,7 @@ export class UsuariosArmazenados{
         return possivelUsuario
     }
 
-    async atualizaUsuario(id: string, dadosAtualizacao: Partial<UsuarioEntity>){
+    async atualizaUsuario(id: string, dadosAtualizacao: Partial<USUARIO>){
         const usuario = this.buscaPorID(id);
 
         Object.entries(dadosAtualizacao).forEach(
@@ -51,7 +51,7 @@ export class UsuariosArmazenados{
    async removeUsuario(id: string){
         const usuario = this.buscaPorID(id);
         this.#usuarios = this.#usuarios.filter(
-            usuarioSalvo => usuarioSalvo.id !== id
+            usuarioSalvo => usuarioSalvo.ID !== id
         )
         return usuario;
    }
