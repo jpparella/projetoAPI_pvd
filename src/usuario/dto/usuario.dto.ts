@@ -1,4 +1,5 @@
 import { IsEmail, IsInt, IsNotEmpty, IsString, MinLength } from "class-validator";
+import { AlteraPessoaDTO } from "src/pessoa/dto/alteraPessoa.dto";
 import { EmailUnico } from "src/validacao/email-unico.validator";
 
 export class CriaUsuarioDTO{
@@ -13,5 +14,6 @@ export class CriaUsuarioDTO{
     @MinLength(6,{message: "Tamanho da senha inválido"})
     SENHA:string;
 
-    
+    @IsNotEmpty({message: "Pessoa não pode ser vazio"})
+    PESSOA: AlteraPessoaDTO;
 }

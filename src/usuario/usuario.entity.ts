@@ -1,4 +1,5 @@
-import { Entity, PrimaryColumn, Column } from "typeorm";
+import { PESSOA } from "src/pessoa/pessoa.entity";
+import { Entity, PrimaryColumn, Column, OneToOne, JoinColumn } from "typeorm";
 
 
 @Entity()
@@ -14,4 +15,8 @@ export class USUARIO{
 
     @Column()
     SENHA: string;
+
+    @OneToOne(() => PESSOA, pessoa => pessoa.usuario)
+    @JoinColumn({ name: 'IDPESSOA', referencedColumnName:'ID'})
+    pessoa: PESSOA;
 }

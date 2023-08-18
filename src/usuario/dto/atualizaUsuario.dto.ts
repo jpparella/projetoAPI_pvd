@@ -18,7 +18,7 @@ export class AlteraUsuarioDTO{
     @IsOptional()
     SENHA:string;
     
-    //@IsOptional()
-    //PESSOA: AlteraPessoaDTO;
+    @IsOptional()
+    PESSOA: AlteraPessoaDTO;
 }
 

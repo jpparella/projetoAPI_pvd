@@ -1,4 +1,5 @@
-import {Entity,Column, PrimaryColumn, OneToMany} from 'typeorm';
+import { USUARIO } from 'src/usuario/usuario.entity';
+import {Entity,Column, PrimaryColumn, OneToMany, OneToOne} from 'typeorm';
 
 @Entity()
 export class PESSOA{
@@ -13,4 +14,7 @@ export class PESSOA{
 
     @Column()
     ENDERECO: string;//....
+
+    @OneToOne(() => USUARIO, usuario => usuario.pessoa)
+    usuario: USUARIO;
 }
