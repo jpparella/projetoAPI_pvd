@@ -81,19 +81,29 @@ export class UsuarioService {
     
   }
 
-  localizarID(ID: string): Promise<USUARIO> {
-    return this.usuarioRepository.findOne({
-      where: {
-        ID,
-      },
-    });
+  async localizarID(ID: string): Promise<USUARIO> {
+    var retorno = await (this.usuarioRepository // select marca.id as ID, marca.nome AS NOME_, pes_f.nome from marca ......
+      .createQueryBuilder('usuario')       
+      .where('usuario.ID = :IDUSU',{ IDUSU:  `${ID}`  })                
+      .getRawOne());  
+
+
+    let usuarioRet = new USUARIO();
+    usuarioRet.ID = retorno.usuario_ID;
+    usuarioRet.EMAIL = retorno.usuario_EMAIL;
+    usuarioRet.LOGIN = retorno.usuario_LOGIN;
+    usuarioRet.SENHA = retorno.usuario_SENHA;
+    usuarioRet.pessoa = await this.pessoaService.localizarID(retorno.usuario_IDPESSOA)    
+    return usuarioRet
   }
   
   async remover(id: string): Promise<RetornoObjDTO> {
+    
     const usuario = await this.localizarID(id);
     
     return this.usuarioRepository.remove(usuario)
-    .then((result) => {
+    .then(async (result) => {
+      const pessoa = await this.pessoaService.remover(usuario.pessoa.ID);
       return <RetornoObjDTO>{
         return: usuario,
         message: "Usuario excluida!"
